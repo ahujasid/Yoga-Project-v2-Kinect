@@ -28,10 +28,33 @@
         <StatusBar Grid.Row="2" HorizontalAlignment="Stretch" Name="statusBar" VerticalAlignment="Bottom" Background="White" Foreground="{StaticResource MediumGreyBrush}">
             <StatusBarItem Content="{Binding StatusText}" />
         </StatusBar>
-        <TextBox Name="RightShoulder" HorizontalAlignment="Left" Height="23" Margin="137,446.8,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="100"/>
-        <TextBox Name="RightElbow" HorizontalAlignment="Left" Height="23" Margin="261,446.8,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="100"/>
-        <TextBox Name="LeftShoulder" HorizontalAlignment="Left" Height="23" Margin="384,446.8,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
-        <TextBox Name="LeftElbow" HorizontalAlignment="Left" Height="23" Margin="514,446.8,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="100"/>
+        <Label Content="R Shoulder" FontSize="12" HorizontalAlignment="Left"  Margin="255,439.8,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <TextBox Name="RightShoulder" HorizontalAlignment="Left" Height="23" Margin="258,464.8,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="64"/>
+        <TextBox Name="RightElbow" HorizontalAlignment="Left" Height="23" Margin="337,465.8,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="64" RenderTransformOrigin="0.5,0.5">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.015"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <TextBox Name="LeftShoulder" HorizontalAlignment="Left" Height="23" Margin="414,464.8,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
+        <TextBox Name="LeftElbow" HorizontalAlignment="Left" Height="23" Margin="494,464.8,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="64"/>
         <TextBox Name="Speech" HorizontalAlignment="Left" Height="23" Margin="137,410.8,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="500"/>
+        <TextBox x:Name="Spine" HorizontalAlignment="Left" Height="23" Margin="573,464.8,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="64"/>
+        <Label Content="R Elbow" FontSize="12" HorizontalAlignment="Left"  Margin="341,439.8,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Label Content="L Shoulder" FontSize="12" HorizontalAlignment="Left"  Margin="417,439.8,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Label Content="L Elbow" FontSize="12" HorizontalAlignment="Left"  Margin="494,439.8,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Label Content="Spine" FontSize="12" HorizontalAlignment="Left"  Margin="581,438.8,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <TextBox x:Name="LeftShin" HorizontalAlignment="Left" Height="23" Margin="177,464.8,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="64"/>
+        <TextBox x:Name="RightShin" HorizontalAlignment="Left" Height="23" Margin="99,464.8,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="64"/>
+        <TextBox x:Name="LeftThigh" HorizontalAlignment="Left" Height="23" Margin="17,464.8,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="64"/>
+        <TextBox x:Name="RightThigh" HorizontalAlignment="Left" Height="23" Margin="17,414.8,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="64"/>
+        <Label Content="L Shin" FontSize="12" HorizontalAlignment="Left"  Margin="177,439.8,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Label Content="R Shin" FontSize="12" HorizontalAlignment="Left"  Margin="112,439.8,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Label Content="L Thigh" FontSize="12" HorizontalAlignment="Left"  Margin="17,439.8,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Label Content="R Thigh" FontSize="12" HorizontalAlignment="Left"  Margin="17,388.8,0,0" Grid.Row="1" VerticalAlignment="Top"/>
     </Grid>
 </Window>

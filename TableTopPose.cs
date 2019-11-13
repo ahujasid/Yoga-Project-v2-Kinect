@@ -29,15 +29,18 @@ namespace Microsoft.Samples.Kinect.BodyBasics
 
         //Flags
         public string speechString = "";
+        public string poseString = "";
 
         bool thighsStraight;
         bool shouldersStraight;
+        bool spineCorrect;
 
 
         public TableTopPose()
         {
             shouldersStraight = false;
             thighsStraight = false;
+            spineCorrect = false;
         }
 
         public double calcAngle(Vector3D vectorA, Vector3D vectorB)
@@ -61,6 +64,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             Vector3D RightHand = new Vector3D(skeleton.Joints[JointType.WristRight].Position.X, skeleton.Joints[JointType.WristRight].Position.Y, skeleton.Joints[JointType.WristRight].Position.Z);
 
             Vector3D ShoulderCenter = new Vector3D(skeleton.Joints[JointType.SpineShoulder].Position.X, skeleton.Joints[JointType.SpineShoulder].Position.Y, skeleton.Joints[JointType.SpineShoulder].Position.Z);
+            Vector3D SpineMid = new Vector3D(skeleton.Joints[JointType.SpineMid].Position.X, skeleton.Joints[JointType.SpineMid].Position.Y, skeleton.Joints[JointType.SpineMid].Position.Z);
             Vector3D SpineBase = new Vector3D(skeleton.Joints[JointType.SpineBase].Position.X, skeleton.Joints[JointType.SpineBase].Position.Y, skeleton.Joints[JointType.SpineBase].Position.Z);
 
             Vector3D HipLeft = new Vector3D(skeleton.Joints[JointType.HipLeft].Position.X, skeleton.Joints[JointType.HipLeft].Position.Y, skeleton.Joints[JointType.HipLeft].Position.Z);
@@ -78,7 +82,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             AngleRightShoulder = calcAngle(RightShoulder - RightElbow, RightElbow - RightHand);
             AngleLeftShoulder = calcAngle(LeftShoulder - LeftElbow, LeftElbow - LeftHand);
 
-            AngleSpine = calcAngle(XRightVector, SpineBase - ShoulderCenter);
+            AngleSpine = calcAngle(ShoulderCenter - SpineMid, SpineMid - SpineBase);
 
             AngleLeftThigh = calcAngle(SpineBase - ShoulderCenter, HipLeft - KneeLeft);
             AngleRightThigh = calcAngle(SpineBase - ShoulderCenter, HipRight - KneeRight);
@@ -94,16 +98,16 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             //Right arm flag setting
             if ((AngleRightThigh > 80 && AngleRightThigh < 110) || (AngleLeftThigh > 80 && AngleLeftThigh < 110))
             {
-                shouldersStraight = true;
-            }
-
-            else shouldersStraight = false;
-
-            if ((AngleRightShoulder > 170 && AngleRightShoulder < 190) || (AngleLeftShoulder > 170 && AngleRightShoulder < 190)) {
                 thighsStraight = true;
             }
 
             else thighsStraight = false;
+
+            if ((AngleRightShoulder > 170 && AngleRightShoulder < 190) || (AngleLeftShoulder > 170 && AngleRightShoulder < 190)) {
+                shouldersStraight = true;
+            }
+
+            else shouldersStraight = false;
 
 
             //Checking conditions
@@ -122,8 +126,83 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             else { speechString = "perfect!"; }
         }
 
-        public void checkTableTopBalanceL() {
-            
+        public void checkTableTopBalance() {
+            if ((AngleRightThigh >160 && AngleRightThigh < 190) || (AngleLeftThigh > 160 && AngleLeftThigh < 190))
+            {
+                thighsStraight = true;
+            }
+
+            else thighsStraight = false;
+
+            if ((AngleRightShoulder > 170 && AngleRightShoulder < 190) || (AngleLeftShoulder > 170 && AngleRightShoulder < 190))
+            {
+                shouldersStraight = true;
+            }
+
+            else shouldersStraight = false;
+
+            if (!thighsStraight)
+            {
+
+                if (AngleLeftThigh < 160 || AngleRightThigh < 160) speechString = "move your legs upwards so they are directly below your hips";
+                else if (AngleLeftThigh > 190 || AngleRightThigh > 190) speechString = "move your legs downwards so they are directly below your hips";
+            }
+
+            else if (!shouldersStraight)
+            {
+                if (AngleLeftShoulder < 160 || AngleRightShoulder < 160) speechString = "move your shoulders backward so they are directly below your hips";
+                else if (AngleLeftShoulder > 190 || AngleRightShoulder > 190) speechString = "move your shoulders forward so they are directly below your hips";
+            }
+            else { speechString = "perfect!"; }
         }
+
+        public void checkCatPose() {
+            //Flag setting
+            if ((AngleRightThigh > 80 && AngleRightThigh < 110) || (AngleLeftThigh > 80 && AngleLeftThigh < 110))
+            {
+                thighsStraight = true;
+            }
+
+            else thighsStraight = false;
+
+            if ((AngleRightShoulder > 170 && AngleRightShoulder < 190) || (AngleLeftShoulder > 170 && AngleRightShoulder < 190))
+            {
+                shouldersStraight = true;
+            }
+
+            else shouldersStraight = false;
+
+            if (AngleSpine < 90)
+            {
+                spineCorrect = true;
+            }
+
+            else spineCorrect = false;
+
+
+
+            //Checking conditions
+
+            if (!spineCorrect) {
+                if (AngleSpine > 60) speechString = "move your spine upwards towards the ceiling to round it more";
+            }
+
+            else if (!thighsStraight)
+            {
+
+                if (AngleLeftThigh < 80 || AngleRightThigh < 80) speechString = "move your knees backward so they are directly below your hips";
+                else if (AngleLeftThigh > 110 || AngleRightThigh > 110) speechString = "move your knees forward so they are directly below your hips";
+            }
+
+            else if (!shouldersStraight)
+            {
+                if (AngleLeftShoulder < 160 || AngleRightShoulder < 160) speechString = "move your shoulders backward so they are directly below your hips";
+                else if (AngleLeftShoulder > 190 || AngleRightShoulder > 190) speechString = "move your shoulders forward so they are directly below your hips";
+            }
+
+            else { speechString = "perfect!"; }
+
+      }
+
     }
 }

@@ -363,7 +363,13 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                             LeftShoulder.Text = ptpose.AngleLeftShoulder.ToString();
                             LeftElbow.Text = ptpose.AngleLeftThigh.ToString();
 
-                            ptpose.checkTableTop();
+                            Spine.Text = ptpose.AngleSpine.ToString();
+                            LeftShin.Text = Math.Round(ptpose.AngleLeftShin).ToString();
+                            LeftThigh.Text = Math.Round(ptpose.AngleLeftThigh).ToString();
+                            RightShin.Text = Math.Round(ptpose.AngleRightShin).ToString();
+                            RightThigh.Text = Math.Round(ptpose.AngleRightThigh).ToString();
+
+                            ptpose.checkCatPose();
 
                             Speech.Text = ptpose.speechString;
 
